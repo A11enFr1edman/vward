@@ -19,7 +19,13 @@ return array(
 	),
 
 	'defaultController'=>'teams',
-
+	'modules' => array(
+        'gii'=>array(
+            'class'=>'system.gii.GiiModule',
+            'password'=>'123456',
+            'ipFilters'=>array('127.0.0.1','::1'),
+        ),
+	),
 	// application components
 	'components'=>array(
 		'user'=>array(
@@ -47,6 +53,11 @@ return array(
 		),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+            'showScriptName'=>false,
+            'caseSensitive'=>false,
+			'rules'=>array( 
+				'/<_a:(login|register|logout|recover)>' => 'site/<_a>',
+			)
 		),
 		'log'=>array(
 			'class'=>'CLogRouter',

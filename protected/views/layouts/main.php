@@ -51,10 +51,10 @@
 	        <?php echo $content; ?>
 	        <footer>
 	            <div class="container">
-	                    <div class="contribute">Sentry is <a href="http://en.wikipedia.org/wiki/Open-source_software">Open Source Software</a>
-	                    <a href="https://github.com/getsentry/sentry" class="btn btn-small">Contribute</a> <a href="https://www.transifex.com/projects/p/sentry/" class="btn btn-small">Translate</a></div>
-	                    <div class="version">Sentry 6.4.0 (812568f) </div>
-	                    <div class="credits">Handcrafted by the <a href="https://www.getsentry.com">Sentry team</a> and its <a href="https://github.com/getsentry/sentry/contributors">many contributors</a></div>
+	                    <div class="contribute">Vision Ward is <a href="http://en.wikipedia.org/wiki/Open-source_software">Open Source Software</a>
+	                    <a href="https://github.com/getsentry/sentry" class="btn btn-small">Contribute</a></div>
+	                    <div class="version">VW 1.0 based on Sentry 6.4.0 (812568f) </div>
+	                    <div class="credits">Handcrafted by the <a href="https://dbc.isd.com">DBC team</a> and its <a href="https://github.com/getsentry/sentry/contributors">many contributors</a></div>
 	            </div>
 	        </footer>
 	    </div>

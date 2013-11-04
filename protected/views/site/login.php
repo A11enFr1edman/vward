@@ -26,13 +26,13 @@ $this->breadcrumbs=array(
 			                    <fieldset>
 			                        <legend>Login with your account</legend>
 			                    </fieldset>
-			                    <input type='hidden' name='csrfmiddlewaretoken' value='inCwlbXR7QLbWax0WOtbtKZHB5nYHYm4' />
+			                    <input type='hidden' name='csrf' value='inCwlbXR7QLbWax0WOtbtKZHB5nYHYm4' />
 								<div id="div_id_username" class="control-group">		
 									<label for="id_username" class="control-label requiredField">
 										用户名<span class="asteriskField">*</span>
 									</label>
 							        <div class="controls">
-							            <input class="textinput textInput" id="id_username" maxlength="254" name="username" type="text" />	
+							            <input class="textinput textInput" id="id_username" maxlength="254" name="login[username]" type="text" />	
 							        </div>
 								</div>
 								<div id="div_id_password" class="control-group">
@@ -40,14 +40,14 @@ $this->breadcrumbs=array(
 										密码<span class="asteriskField">*</span>
 									</label>       
 						            <div class="controls">
-						                    <input class="textinput textInput" id="id_password" name="password" type="password" />
+						                    <input class="textinput textInput" id="id_password" name="login[password]" type="password" />
 						            </div>
 								</div>
 			                    <fieldset class="form-actions">
 			                        <div class="pull-right" style="margin-top: 5px;">
 			                            <a href="/register/">注册帐号</a>
 			                        </div>
-			                        <button type="submit" class="btn btn-primary">登录</button> <a href="/account/recover/">忘记密码?</a>
+			                        <button type="submit" class="btn btn-primary">登录</button> <a href="/recover/">忘记密码?</a>
 			                    </fieldset>
 			                </form>
 			            </div>

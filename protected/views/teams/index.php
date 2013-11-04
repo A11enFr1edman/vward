@@ -18,7 +18,8 @@
 			                </div>
 			                <h2><a href="/dbc/">DBC</a></h2>
 			                <ul>
-			                    <li><a href="/dbc/dbc/">鹦鹉螺</a></li>
+			                    <li><a href="/dbc/visionward/">VisionWard</a></li>
+								<li><a href="/dbc/dbc/">鹦鹉螺</a></li>
 			                </ul>
 			            </li>
 			            <li>
@@ -30,6 +31,7 @@
 			                </div>
 			                <h2><a href="/sentry/">Sentry</a></h2>
 			                <ul>
+			                    <li><a href="/sentry/sentry/">Sentry</a></li>
 			                    <li><a href="/sentry/sentry/">Sentry</a></li>
 			                </ul>
 			            </li>
