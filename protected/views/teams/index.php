@@ -5,7 +5,7 @@
 				<div id="messages"></div>                           
 			    <section class="body">
 			        <div class="pull-right">
-			            <a href="/account/teams/new/" class="btn btn-primary">Create a New Team</a>
+			            <a href="/teams/new/" class="btn btn-primary">Create a New Team</a>
 			        </div>
 			        <h2>Your teams</h2>
 			        <ul class="team-list">

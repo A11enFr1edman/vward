@@ -57,6 +57,7 @@ return array(
             'caseSensitive'=>false,
 			'rules'=>array( 
 				'/<_a:(login|register|logout|recover)>' => 'site/<_a>',
+                '/<_c:teams>/<slug>/<_a>' => 'teams/<_a>',
 			)
 		),
 		'log'=>array(
