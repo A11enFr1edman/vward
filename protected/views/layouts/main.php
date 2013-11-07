@@ -14,10 +14,10 @@
             <script src="/static/scripts/global.min.js" type="text/javascript" ></script>
             <script src="/static/scripts/legacy.min.js" type="text/javascript" ></script>
             <script type="text/javascript">
-                moment.lang('en');            
+                moment.lang('zh-cn');
 	            app.config.popupCss = '/static/styles/popup.css';
 	            app.config.mediaUrl = '/static/';
-	            app.config.urlPrefix = "http://198.199.94.36:8080";
+	            app.config.urlPrefix = "http://ward.isd.com/";
                 app.config.projectId = null;
                 app.config.teamId = null;
             </script>        
@@ -28,8 +28,9 @@
                 <div class="navbar navbar-inverse">
                     <div class="navbar-inner">
                         <div class="container">
-                            <a id="logo" href="/">Sentry</a>                            
+                            <a id="logo" href="/">Sentry</a>
                             <h1><?php echo $this->title?></h1>
+                            <?php if($this->currentTeam){ ?>
                             <div id="team-banner">
                                 <a class="dropdown-toggle" data-toggle="dropdown">
                                     DBC
@@ -53,18 +54,22 @@
                                     </ul>
                                 </nav>
                             </div>
-
+                            <?php } ?>
                            	<ul class="nav pull-right">
+                                <?php if(Yii::app()->user->id){?>
                                 <li><a href="/teams/dbc/settings/">Team Settings</a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="avatar" src="https://secure.gravatar.com/avatar/3dd58b1eac9406ae08099585c409316b?s=20&d=mm"> <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/account/settings/">Account</a></li>
-                                        <li><a href="/">Teams</a></li>                                                
+                                        <li><a href="/">Teams</a></li>
                                         <li class="divider">
                                         <li><a href="/logout/">Logout</a></li>
                                     </ul>
                                 </li>
+                                <?php }else{ ?>
+                                <li><a href="/login/">登录</a></li>
+                                <?php } ?>
                             </ul>
                          </div>
                     </div>
