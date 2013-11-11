@@ -11,6 +11,7 @@ class GenericController extends Controller{
     public $class = 'windowed';
 
     public function actionDashboard(){
+
         $this->render('dashboard');
     }
 

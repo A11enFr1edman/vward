@@ -8,7 +8,10 @@
 
 class GroupsController extends Controller {
 
-    public function actionGroup_list(){
+    public function actionGroup_list($team_slug, $project_id){
+        $this->team_slug = $team_slug;
+        $this->project_id = $project_id;
+
         $this->render('group_list');
     }
 

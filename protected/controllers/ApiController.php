@@ -49,15 +49,19 @@ class ApiController extends Controller
 
         $project = Project::model()->findByPK($project_id);
 
+        #判断容量限制
         if ($project::is_rate_limited){
             $this->response('API RateLimited');
         }
 
+        #判断权限
         $result = Plugins::first('has_perm', request.user, 'create_event', $project);
+
         if ($result == false){
             $this->response('Creation of this event was blocked');
         }
 
+        #处理数据
         try{
             # mutates data
             Store::validate_data($project, $data, $auth['client']);
