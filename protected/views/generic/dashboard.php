@@ -1,3 +1,5 @@
+<section id="page-header" class="toolbar" style="height:5px;">
+</section>
 <section id="content" class="team-index ">
     <div class="container">
         <div class="content">
@@ -5,9 +7,9 @@
 				<div id="messages"></div>                           
 			    <section class="body">
 			        <div class="pull-right">
-			            <a href="/teams/new/" class="btn btn-primary">Create a New Team</a>
+			            <a href="/teams/new/" class="btn btn-primary">注册新团队</a>
 			        </div>
-			        <h2>Your teams</h2>
+			        <h2>我的团队</h2>
 			        <ul class="team-list">
 			            <li>
 			                <div class="chart" data-api-url="/api/dbc/chart/">

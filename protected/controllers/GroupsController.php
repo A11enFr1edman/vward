@@ -12,6 +12,8 @@ class GroupsController extends Controller {
         $this->team_slug = $team_slug;
         $this->project_id = $project_id;
 
+
+
         $this->render('group_list');
     }
 
@@ -26,7 +28,8 @@ class GroupsController extends Controller {
     }
 
 
-    public function actionDashboard(){
+    public function actionDashboard($team_slug){
+        $this->team_slug = $team_slug;
 
         $this->render('dashboard');
     }

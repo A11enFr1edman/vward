@@ -47,7 +47,7 @@ $this->breadcrumbs=array(
 			                        <div class="pull-right" style="margin-top: 5px;">
 			                            <a href="/register/">注册帐号</a>
 			                        </div>
-			                        <button type="submit" class="btn btn-primary">登录</button> <a href="/recover/">忘记密码?</a>
+			                        <button type="submit" class="btn btn-primary">登录</button> <a href="/account/recover/">忘记密码?</a>
 			                    </fieldset>
 			                </form>
 			            </div>

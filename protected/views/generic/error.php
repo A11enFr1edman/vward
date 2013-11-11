@@ -7,7 +7,7 @@ $this->pageTitle=Yii::app()->name . ' - Error';
         <div class="content">
             <div class="main">
                 <div id="messages"></div>
-                <section class="body">
+                <section class="body" style="min-height: 200px">
                     <h2>Error <?php echo $code; ?></h2>
                     <div class="error">
                     <?php echo CHtml::encode($message); ?>

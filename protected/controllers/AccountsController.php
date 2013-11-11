@@ -11,20 +11,62 @@ class AccountsController extends Controller{
     public $class="windowed";
     public $title = 'Account';
 
+    /**
+     * 
+     */
     public function actionRegister(){
-        $this->class='windowed';
 
         $this->render('register');
     }
 
-    public function actionRecover(){
-        $this->class='windowed';
 
-        $this->render('recover');
+    /**
+     *
+     */
+    public function actionRecover(){
+
+        $sent = false;
+        if(Yii::app()->request->isPostRequest){
+            $user = AuthUser::model()->FindByAttributes(array('username'=>Yii::app()->request->getParam('user')));
+            if(!empty($user)){
+                # Force overwrite recover recover record if exists
+                $m = Lostpasswordhash::model()->FindByAttributes(array('user_id'=>$user->id));
+
+                $m->user_id = $user->id;
+                $m->hash = md5(uniqid());
+                $m->date_added = date('Y-m-d H:i:s');
+
+                if($m->save()){
+                    $sent = true;
+                }else{
+                    Yii::app()->user->setFlash('error','Unable to recover your password!');
+                }
+            }else{
+                Yii::app()->user->setFlash('error','We were unable to find a matching user.');
+            }
+        }
+
+        $this->render('recover', array('sent' => $sent));
     }
 
-    public function actionRecover_confirm(){
 
+    /**
+     * @param $user_id
+     * @param $hash
+     */
+    public function actionRecover_confirm($user_id, $hash){
+        $error = true;
+        //TODO: add hash expire check in sql
+        $m = Lostpasswordhash::model()->FindByAttributes(array('id'=> $user_id,'hash' => $hash));
+        if(!empty($m)){
+            $error = false;
+        }
+        if(Yii::app()->request->isPostRequest){
+            $user = AuthUser::model()->FindByPk($user_id);
+            $user->password = $user->hashPassword(Yii::app()->request->getParam('password'));
+
+        }
+        $this->render('recover_confirm', array('error'=>$error));
     }
 
 
@@ -73,6 +115,7 @@ class AccountsController extends Controller{
     }
 
     public function actionSettings(){
+
 
         $this->render('settings');
     }

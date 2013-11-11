@@ -31,7 +31,15 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+            'autoRenewCookie' => true,
+            'loginUrl' => array('/login'),
 		),
+        'request'=>array(
+            'class' => 'application.components.HttpRequest',
+            'enableCsrfValidation'=>true,
+            'enableCookieValidation'=>true,
+            'csrfTokenName' => 'authenticity_token',
+        ),
 		'db'=>array(
 			'connectionString' => 'sqlite:protected/data/sentry.db',
 			'tablePrefix' => '',
@@ -48,17 +56,18 @@ return array(
 		),
 		*/
 		'errorHandler'=>array(
-			// use 'site/error' action to display errors
 			'errorAction'=>'generic/error',
 		),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
             'showScriptName'=>false,
             'caseSensitive'=>false,
-			'rules'=>array(
+			/* */
+            'rules'=>array(
                 # Account
                 'login'=> 'accounts/login',
                 'login-redirect'=> 'accounts/login_redirect',
+                'logout'=> 'accounts/logout',
                 'register'=> 'accounts/register',
                 'account/recover'=> 'accounts/recover',
                 'account/recover/confirm/<user_id:[\d]+>/<hash:[0-9a-zA-Z]+>'=> 'accounts/recover_confirm',
@@ -199,6 +208,7 @@ return array(
                 # Legacy
                 '/<project_id:[\w_-]>/group/<group_id:\d+>'=> 'groups/redirect_to_group',
 			)
+            /* */
 		),
 		'log'=>array(
 			'class'=>'CLogRouter',

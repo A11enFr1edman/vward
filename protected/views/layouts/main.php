@@ -5,7 +5,7 @@
         <meta name="robots" content="NONE,NOARCHIVE">
         <link href="/static/images/favicon.ico" rel="shortcut icon" type="image/png"/> 
         <link href="/static/styles/global.min.css" rel="stylesheet" type="text/css" />
-        <title>Sentry</title>
+        <title><?php echo $this->pageTitle;?></title>
         <!--[if lt IE 9]>
         <script type="text/javascript" src="/static/scripts/lib/html5shiv.js"></script>
         <![endif]-->       
@@ -18,8 +18,8 @@
 	            app.config.popupCss = '/static/styles/popup.css';
 	            app.config.mediaUrl = '/static/';
 	            app.config.urlPrefix = "http://ward.isd.com/";
-                app.config.projectId = null;
-                app.config.teamId = null;
+                app.config.projectId = <?php echo $this->team_slug ?: 'null' ?>;
+                app.config.teamId = <?php echo $this->project_id ?: 'null' ?>;
             </script>        
     </head>
     <body class="<?php echo $this->class?>">
@@ -30,10 +30,11 @@
                         <div class="container">
                             <a id="logo" href="/">Sentry</a>
                             <h1><?php echo $this->title?></h1>
-                            <?php if($this->currentTeam){ ?>
+                            <?php if($this->team_slug){ ?>
                             <div id="team-banner">
                                 <a class="dropdown-toggle" data-toggle="dropdown">
                                     DBC
+                                    <small>VisionWard</small>
                                     <span class="caret"></span>
                                 </a>
                                 <nav class="dropdown-menu">
@@ -57,7 +58,9 @@
                             <?php } ?>
                            	<ul class="nav pull-right">
                                 <?php if(Yii::app()->user->id){?>
+                                <?php if($this->team_slug){ ?>
                                 <li><a href="/teams/dbc/settings/">Team Settings</a></li>
+                                <?php } ?>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="avatar" src="https://secure.gravatar.com/avatar/3dd58b1eac9406ae08099585c409316b?s=20&d=mm"> <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
