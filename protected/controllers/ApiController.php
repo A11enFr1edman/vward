@@ -17,6 +17,34 @@ class ApiController extends Controller
     }
 
 
+
+    public function actionGet_group_trends(){
+        $ret ='[{"version": 1384169220.505725, "timeSpent": null, "lastSeen": "2013-11-11T19:09:44.269984+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "django.http.request in get_host", "id": "1", "score": 1384171670, "logger": "root", "canResolve": true, "annotations": [{"count": 30, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": true, "firstSeen": "2013-10-29T00:43:05.271389+08:00", "count": "335", "permalink": "/sentry/sentry/group/1/", "level": 40, "message": "SuspiciousOperation: Invalid HTTP_HOST header (you may need to set ALLOWED_HOSTS): www.qq.com", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}]';
+        $this->response(200,$ret);
+    }
+
+
+    public function actionGet_new_groups(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
+
+
+    public function actionChart(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
+
+    public function actionBookmark(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
+    public function actionResolve_group(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
+
+
     private function process($data, $project_id){
 
         $project = Project::model()->findByPK($project_id);
@@ -44,7 +72,6 @@ class ApiController extends Controller
         if (auth::is_public){
             Store::ensure_has_ip($data, $_SERVER['REMOTE_ADDR']);
         }
-
         $event_id = $data['event_id'];
 
         # mutates data (strips a lot of context if not queued)
@@ -82,5 +109,7 @@ class ApiController extends Controller
             501 => 'Not Implemented');
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
+
+
 
 }
