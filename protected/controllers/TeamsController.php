@@ -24,9 +24,15 @@ class TeamsController extends Controller
 			),
 		);
 	}
-	public function actionIndex()
+
+	public function actionManage_team()
 	{
-		$this->render('index');
+		$this->render('manage_team');
+	}
+
+	public function actionCreate_new_team_project(){
+		
+		$this->render('create_new_team_project');
 	}
 
 	public function actionNew()

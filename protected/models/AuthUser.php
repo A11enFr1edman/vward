@@ -47,7 +47,7 @@ class AuthUser extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined', 'required'),
+			array('password, username, em:ail, is_staff, is_active, date_joined', 'required'),
 			array('password', 'length', 'max'=>128),
 			array('username, first_name, last_name', 'length', 'max'=>30),
 			array('email', 'length', 'max'=>75),

@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <meta name="robots" content="NONE,NOARCHIVE">
-        <link href="/static/images/favicon.ico" rel="shortcut icon" type="image/png"/> 
+        <link rel="shortcut icon" href="/static/images/favicon.gif" type="image/x-icon" /> 
         <link href="/static/styles/global.min.css" rel="stylesheet" type="text/css" />
         <title><?php echo $this->pageTitle;?></title>
         <!--[if lt IE 9]>

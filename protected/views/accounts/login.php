@@ -23,10 +23,10 @@ $this->breadcrumbs=array(
 			        <div class="row">
 			            <div class="span5">
 			                <form class="form-stacked" action="" method="post">
+                                <input type='hidden' name='authenticity_token' value='<?php echo Yii::app()->request->getCsrfToken() ?>' />
 			                    <fieldset>
 			                        <legend>Login with your account</legend>
 			                    </fieldset>
-			                    <input type='hidden' name='csrf' value='inCwlbXR7QLbWax0WOtbtKZHB5nYHYm4' />
 								<div id="div_id_username" class="control-group">		
 									<label for="id_username" class="control-label requiredField">
 										用户名<span class="asteriskField">*</span>
