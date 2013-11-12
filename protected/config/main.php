@@ -210,6 +210,10 @@ return array(
 			)
             /* */
 		),
+        'sentry'=>array(
+            'class'=>'ext.yii-sentry.components.RSentryClient',
+            'dsn'=>'http://bbe1864337ec49b1938abcc53a6751f5:4e49e6bb34894b68a536ded058ca67a6@198.199.94.36:8080/1',
+        ),
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
@@ -217,6 +221,10 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
+                array(
+                    'class'=>'ext.yii-sentry.components.RSentryLogRoute',
+                    'levels'=>'error, warning',
+                ),
 			),
 		),
 	),
