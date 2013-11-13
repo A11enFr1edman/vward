@@ -105,40 +105,4 @@ class Groupedmessage extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('status',$this->status);
-		$criteria->compare('first_seen',$this->first_seen,true);
-		$criteria->compare('resolved_at',$this->resolved_at,true);
-		$criteria->compare('last_seen',$this->last_seen,true);
-		$criteria->compare('time_spent_count',$this->time_spent_count);
-		$criteria->compare('level',$this->level);
-		$criteria->compare('num_comments',$this->num_comments);
-		$criteria->compare('times_seen',$this->times_seen);
-		$criteria->compare('active_at',$this->active_at,true);
-		$criteria->compare('id',$this->id);
-		$criteria->compare('time_spent_total',$this->time_spent_total);
-		$criteria->compare('score',$this->score);
-		$criteria->compare('platform',$this->platform,true);
-		$criteria->compare('checksum',$this->checksum,true);
-		$criteria->compare('is_public',$this->is_public);
-		$criteria->compare('message',$this->message,true);
-		$criteria->compare('project_id',$this->project_id);
-		$criteria->compare('data',$this->data,true);
-		$criteria->compare('logger',$this->logger,true);
-		$criteria->compare('view',$this->view,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
 }
