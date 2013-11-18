@@ -478,6 +478,8 @@ class Raven_Client
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $success = ($code == 200);
         curl_close($curl);
+        var_dump($code);
+        die;
         if (!$success) {
             // It'd be nice just to raise an exception here, but it's not very PHP-like
             $this->_lasterror = $ret;

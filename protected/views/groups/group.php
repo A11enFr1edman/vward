@@ -18,12 +18,12 @@
 
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="/sentry/sentry/">Stream</a>
+                <a href="/sentry/sentry/">动态</a>
             </li>
 
             <li>
                 <a href="/sentry/sentry/settings/" title="Project Settings">
-                    Settings
+                    设置
                 </a>
             </li>
 
@@ -59,7 +59,14 @@
 <section class="body">
 
 
-
+<div class="module">
+    <div id="chart" class="chart" data-api-url="/api/<?php echo $this->team_slug;?>/<?php echo $this->project_id;?>/chart/" data-group="10172816">
+        <div class="sparkline">
+            <span class="loading">Loading historical data...</span>
+            <noscript>Get yourself some JavaScripts dood</noscript>
+        </div>
+    </div>
+</div>
 
 
 <div class="activity" id="activity">
@@ -1190,7 +1197,7 @@
 <div class="sidebar">
 
     <ul class="nav nav-list">
-        <li class="active"><a href="/sentry/sentry/group/1/">Aggregate</a></li>
+        <li class="active"><a href="/sentry/sentry/group/1/">聚合</a></li>
         <li>
             <a href="/sentry/sentry/group/1/tags/">Tags</a>
         </li>
@@ -1202,15 +1209,15 @@
     <h6>Aggregate Details</h6>
 
     <dl class="flat">
-        <dt>Status:</dt>
+        <dt>状态:</dt>
         <dd>Unresolved</dd>
-        <dt>First Seen:</dt>
+        <dt>首次出现:</dt>
         <dd class="pretty-date" data-datetime="2013-10-29T00:43:05.271389+08:00">Oct. 28, 2013</dd>
 
         <dt>Reopened At:</dt>
         <dd class="pretty-date" data-datetime="2013-10-29T01:03:00.002134+08:00">Oct. 28, 2013</dd>
 
-        <dt>Last Seen:</dt>
+        <dt>最后出现:</dt>
         <dd class="pretty-date" data-datetime="2013-11-11T17:39:21.121322+08:00">1 hour ago</dd>
 
     </dl>

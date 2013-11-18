@@ -1,21 +1,21 @@
 <section id="page-header" class="toolbar">
     <div class="container">
         <div class="pull-right">
-            <form action="/sentry/sentry/search/" id="search">
+            <form action="/<?php echo $this->team_slug;?>/<?php echo $this->project_id;?>/search/" id="search">
                 <input type="text" name="q" value="" placeholder="Search query or event ID" />
             </form>
         </div>
         <div class="dashboard-btn">
-            <a href="/sentry/" title="Dashboard">
+            <a href="/<?php echo $this->team_slug;?>/" title="Dashboard">
                 <i aria-hidden="true" class="icon-list"></i>
             </a>
         </div>
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="/sentry/sentry/">Stream</a>
+                <a href="/<?php echo $this->team_slug;?>/<?php echo $this->project_id;?>/">Stream</a>
             </li>
             <li>
-                <a href="/sentry/sentry/settings/" title="Project Settings">
+                <a href="/<?php echo $this->team_slug;?>/<?php echo $this->project_id;?>/settings/" title="Project Settings">
                     Settings
                 </a>
             </li>
@@ -25,26 +25,10 @@
 
 <section id="content" class="with-sidebar">
 <div class="container">
-
 <div class="content">
-
-
-
-
 <div class="main">
-
-
-
     <div id="messages">
-
     </div>
-
-
-
-
-
-
-
     <div class="btn-toolbar">
         <div class="btn-group">
             <a class="btn" href="javascript:void(0)" id="sentry-resolve-feed" onclick="Sentry.stream.clear('sentry');"><i aria-hidden="true" class="icon-checkmark"></i> Resolve Feed</a>
@@ -123,7 +107,7 @@
     <script>
         $(function(){
             new app.StreamPage({
-                groups: [{"version": 1384360152.784553, "timeSpent": 20, "lastSeen": "2013-11-13T23:50:10.150000+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "http://ward.com/sentry/sentry/", "id": "42", "score": 1384357810.1499975, "logger": "php", "canResolve": true, "annotations": [{"count": 1, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": false, "firstSeen": "2013-11-13T23:50:10.150000+08:00", "count": "1", "permalink": "/sentry/sentry/group/42/", "level": 40, "message": "false", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.785087, "timeSpent": null, "lastSeen": "2013-11-13T23:50:10.150000+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "http://ward.com/sentry/sentry/", "id": "43", "score": 1384357810.1499975, "logger": "php", "canResolve": true, "annotations": [{"count": 1, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": false, "firstSeen": "2013-11-13T23:50:10.150000+08:00", "count": "1", "permalink": "/sentry/sentry/group/43/", "level": 40, "message": "false", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.785582, "timeSpent": null, "lastSeen": "2013-11-13T23:50:10+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "http://ward.com/sentry/sentry/", "id": "41", "score": 1384357810.0000083, "logger": "php", "canResolve": true, "annotations": [{"count": 1, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": false, "firstSeen": "2013-11-13T23:50:10+08:00", "count": "1", "permalink": "/sentry/sentry/group/41/", "level": 40, "message": "CDbCommand failed to execute the SQL statement: CDbCommand failed to prepare the SQL statement: S...", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.786069, "timeSpent": null, "lastSeen": "2013-11-13T22:46:04+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "http://ward.com/sentry/sentry/notifications/", "id": "35", "score": 1384353963.999988, "logger": "php", "canResolve": true, "annotations": [{"count": 1, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": true, "firstSeen": "2013-11-12T23:56:57+08:00", "count": "8", "permalink": "/sentry/sentry/group/35/", "level": 40, "message": "Unable to resolve the request &quot;docs/client_guide&quot;.", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.786553, "timeSpent": null, "lastSeen": "2013-11-13T22:27:54.047534+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "static_compiler.management.commands.compilestatic in run_command", "id": "40", "score": 1384352874.0470185, "logger": "root", "canResolve": true, "annotations": [{"count": 1, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": true, "firstSeen": "2013-11-13T22:27:54.047534+08:00", "count": "1", "permalink": "/sentry/sentry/group/40/", "level": 40, "message": "AssertionError: /bin/sh: 1: /www/sentry/node_modules/less/bin/lessc: not found", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.787041, "timeSpent": null, "lastSeen": "2013-11-13T21:28:18.089748+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "sentry/layout.html", "id": "37", "score": 1384349298.0889857, "logger": "root", "canResolve": true, "annotations": [{"count": 1, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": false, "firstSeen": "2013-11-13T01:30:09.347626+08:00", "count": "5", "permalink": "/sentry/sentry/group/37/", "level": 40, "message": "AssertionError: ", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.787543, "timeSpent": null, "lastSeen": "2013-11-13T21:22:34.916461+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "sentry/layout.html", "id": "39", "score": 1384348954.915993, "logger": "root", "canResolve": true, "annotations": [{"count": 1, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": false, "firstSeen": "2013-11-13T21:09:31.256425+08:00", "count": "4", "permalink": "/sentry/sentry/group/39/", "level": 40, "message": "AssertionError: ", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.788068, "timeSpent": null, "lastSeen": "2013-11-13T02:16:36.331577+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "sentry/layout.html", "id": "38", "score": 1384280196.330987, "logger": "root", "canResolve": true, "annotations": [{"count": 1, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": false, "firstSeen": "2013-11-13T02:01:04.294522+08:00", "count": "4", "permalink": "/sentry/sentry/group/38/", "level": 40, "message": "AssertionError: /bin/sh: 1: /www/sentry/node_modules/less/bin/lessc: not found", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.788584, "timeSpent": null, "lastSeen": "2013-11-13T01:26:32.343364+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "django.http.request in get_host", "id": "1", "score": 1384277192.343016, "logger": "root", "canResolve": true, "annotations": [{"count": 34, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": true, "firstSeen": "2013-10-29T00:43:05.271389+08:00", "count": "355", "permalink": "/sentry/sentry/group/1/", "level": 40, "message": "SuspiciousOperation: Invalid HTTP_HOST header (you may need to set ALLOWED_HOSTS): www.qq.com", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}, {"version": 1384360152.789077, "timeSpent": null, "lastSeen": "2013-11-12T01:51:01.204969+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "smtplib in login", "id": "33", "score": 1384192261.2040088, "logger": "sentry.mail.errors", "canResolve": true, "annotations": [{"count": 0, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": true, "firstSeen": "2013-11-12T01:11:40.018666+08:00", "count": "3", "permalink": "/sentry/sentry/group/33/", "level": 40, "message": "(535, &#39;5.7.0 Mailgun is not loving your login or password&#39;)", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}],
+                groups: <?php echo json_encode($event_list);?>,
                 canStream: true,
                 realtime: true
             });
@@ -132,17 +116,13 @@
 </div>
 
 <div class="sidebar">
-
-    <div id="chart" class="chart" data-api-url="/api/sentry/chart/" data-days="1">
+    <div id="chart" class="chart" data-api-url="/api/<?php echo $this->team_slug;?>/chart/" data-days="1">
         <div class="sparkline">
             <noscript>Get yourself some JavaScripts dood</noscript>
             <span class="loading">Loading historical data...</span>
         </div>
     </div>
-
     <form method="get">
-
-
         <h6>Bookmarks</h6>
         <div class="filter">
             <ul class="nav nav-tabs nav-stacked filter-list">
@@ -150,12 +130,7 @@
                 <li><a href="?&amp;bookmarks=1">Only Bookmarks</a></li>
             </ul>
         </div>
-
-
-
-
         <h6>Status</h6>
-
         <div class="filter">
             <select name="status" class="filter-list" rel="status" data-allowClear="true" data-placeholder="Select a status">
                 <option></option>
@@ -165,9 +140,7 @@
             </select>
         </div>
 
-
         <h6>Browser</h6>
-
         <div class="filter">
             <select name="browser" class="filter-list" rel="browser" data-allowClear="true" data-placeholder="Select a browser">
                 <option></option>
@@ -185,7 +158,6 @@
 
 
         <h6>Level</h6>
-
         <div class="filter">
             <select name="level" class="filter-list" rel="level" data-allowClear="true" data-placeholder="Select a level">
                 <option></option>
@@ -195,7 +167,6 @@
 
 
         <h6>Logger</h6>
-
         <div class="filter">
             <select name="logger" class="filter-list" rel="logger" data-allowClear="true" data-placeholder="Select a logger">
                 <option></option>
@@ -205,7 +176,6 @@
 
 
         <h6>OS</h6>
-
         <div class="filter">
             <select name="os" class="filter-list" rel="os" data-allowClear="true" data-placeholder="Select a os">
                 <option></option>
@@ -217,7 +187,6 @@
 
 
         <h6>Server</h6>
-
         <div class="filter">
             <select name="server_name" class="filter-list" rel="server_name" data-allowClear="true" data-placeholder="Select a server">
                 <option></option>
@@ -227,7 +196,6 @@
 
 
         <h6>Site</h6>
-
         <div class="filter">
             <select name="site" class="filter-list" rel="site" data-allowClear="true" data-placeholder="Select a site">
                 <option></option>
@@ -237,7 +205,6 @@
 
 
         <h6>URL</h6>
-
         <div class="filter">
             <select name="url" class="filter-list" rel="url" data-allowClear="true" data-placeholder="Select a url">
                 <option></option>
@@ -271,13 +238,8 @@
                 <option value="http://www.qq.com/">http://www.qq.com/</option>
             </select>
         </div>
-
     </form>
-
 </div>
-
-
-
 
 </div>
 </div>

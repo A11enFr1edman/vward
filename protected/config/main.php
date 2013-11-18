@@ -39,6 +39,7 @@ return array(
             'enableCsrfValidation'=>true,
             'enableCookieValidation'=>true,
             'csrfTokenName' => 'authenticity_token',
+            'noCsrfValidationRoutes'=>array('api'),
         ),
 		'db'=>array(
 			'connectionString' => 'sqlite:protected/data/sentry.db',
@@ -55,6 +56,15 @@ return array(
 			'tablePrefix' => 'tbl_',
 		),
 		*/
+
+        'resque'=>array(
+            'class' => 'application.components.yii-resque.RResque',
+            'server' => 'localhost',    // Redis server address
+            'port' => '6379',           // Redis server port
+            'database' => 0,            // Redis database number
+            'password' => ''            // Redis password auth, set to '' or null when no auth needed
+        ),
+
 		'errorHandler'=>array(
 			'errorAction'=>'generic/error',
 		),
@@ -104,7 +114,7 @@ return array(
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/settings'=> 'projects/settings',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/docs'=> ' docs/client_help',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/docs/<platform>' => 'docs/client_guide',
-                '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/keys'=> 'projects/keys/manage_project_keys',
+                '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/keys'=> 'projects/manage_project_keys',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/keys/new'=> ' projects/new_project_key',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/keys/<key_id:\d+>/remove'=> ' projects/remove_project_key',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/plugins'=> 'projects/plugins/manage_plugins',
@@ -202,7 +212,7 @@ return array(
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/alerts'=> 'alerts/alert_list',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/alerts/<alert_id:\d+>'=> 'alerts/alert_details',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/alerts/<alert_id:\d+>/resolve'=> 'alerts/resolve_alert',
-                '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/stream'=> 'groups/group_list)',
+                '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/stream'=> 'groups/group_list',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>'=> 'groups/group_list',
                 '/<team_slug:[\w_-]+>'=> 'groups/dashboard',
                 # Legacy
@@ -211,8 +221,10 @@ return array(
             /* */
 		),
         'sentry'=>array(
+            'enabled'=> false,
             'class'=>'ext.yii-sentry.components.RSentryClient',
-            'dsn'=>'http://bbe1864337ec49b1938abcc53a6751f5:4e49e6bb34894b68a536ded058ca67a6@198.199.94.36:8080/1',
+            //'dsn'=>'http://bbe1864337ec49b1938abcc53a6751f5:4e49e6bb34894b68a536ded058ca67a6@198.199.94.36:8080/1',
+            'dsn'=>'http://bbe1864337ec49b1938abcc53a6751f5:4e49e6bb34894b68a536ded058ca67a6@ward.com/1',
         ),
 		'log'=>array(
 			'class'=>'CLogRouter',

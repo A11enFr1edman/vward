@@ -10,6 +10,7 @@
 class HttpRequest extends CHttpRequest{
 
     private $_csrfToken;
+    public $noCsrfValidationRoutes = array();
 
     public function getCsrfToken()
     {
@@ -31,10 +32,10 @@ class HttpRequest extends CHttpRequest{
 
     public function validateCsrfToken($event)
     {
-        if($this->getIsPostRequest())
+        if($this->getIsPostRequest() && false === $this->checkCurrentRoute())
         {
             // only validate POST requests
-            $session=Yii::app()->session;
+            $session = Yii::app()->session;
             if($session->contains($this->csrfTokenName) && isset($_POST[$this->csrfTokenName]))
             {
                 $tokenFromSession=$session->itemAt($this->csrfTokenName);
@@ -45,6 +46,20 @@ class HttpRequest extends CHttpRequest{
             if(!$valid)
                 throw new CHttpException(400,Yii::t('yii','The CSRF token could not be verified.'));
         }
+    }
+
+    private function checkCurrentRoute() {
+        foreach ($this->noCsrfValidationRoutes as $checkPath)
+        {
+            if (($pos = strpos($checkPath, "*")) !== false)
+            {
+                $checkPath = substr($checkPath, 0, $pos - 1);
+                if (strpos($this->pathInfo, $checkPath) == 0)
+                    return false;
+            } elseif ($this->pathInfo === $checkPath)
+                return false;
+        }
+        return true;
     }
 
 }

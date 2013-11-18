@@ -28,6 +28,10 @@ class GenericController extends Controller{
     public function accessRules()
     {
         return array(
+            array('allow',
+                'actions'=>array('error'),
+                'users'=>array('*'),
+            ),
             array('allow', // allow authenticated users to access all actions
                 'users'=>array('@'),
             ),

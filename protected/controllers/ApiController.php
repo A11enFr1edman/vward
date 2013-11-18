@@ -1,22 +1,22 @@
 <?php
 
-class ApiController extends Controller
+class ApiController extends AController
 {
 
-
-	public function actionStore($project_id)
+	public function actionStore($project_id='')
 	{
         if(Yii::app()->request->isPostRequest){
-            $response_or_event_id = $this->process($_GET,$project_id);
-            $this->response(200, array('id'=> $response_or_event_id));
+            $data = file_get_contents("php://input");
+            $event_id = $this->process($data, $project_id);
+            $this->response(200, array('id'=> $event_id));
         }else{
-            $this->process($_GET,$project_id);
-            header('X-Sentry-ID: response_or_event_id');
+
+            //$event_id = $this->process($_GET,$project_id);
+            $event_id = 234234234234234234234564456456345;
+            header("X-Sentry-ID: $event_id");
             $this->response(200, base64_decode('R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='), 'image/gif');
         }
     }
-
-
 
     public function actionGet_group_trends(){
         $ret ='[{"version": 1384169220.505725, "timeSpent": null, "lastSeen": "2013-11-11T19:09:44.269984+08:00", "historicalData": [], "isResolved": false, "levelName": "error", "title": "django.http.request in get_host", "id": "1", "score": 1384171670, "logger": "root", "canResolve": true, "annotations": [{"count": 30, "label": "users"}], "tags": [], "isPublic": false, "hasSeen": true, "firstSeen": "2013-10-29T00:43:05.271389+08:00", "count": "335", "permalink": "/sentry/sentry/group/1/", "level": 40, "message": "SuspiciousOperation: Invalid HTTP_HOST header (you may need to set ALLOWED_HOSTS): www.qq.com", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}]';
@@ -29,10 +29,41 @@ class ApiController extends Controller
         $this->response(200,$ret);
     }
 
+    /**
+     * Get events chart
+     * @param $team_slug
+     * @throws CHttpException
+     */
+    public function actionChart($team_slug){
+        $days = Yii::app()->request->getParam('days', 1);
 
-    public function actionChart(){
-        $ret ='[]';
-        $this->response(200,$ret);
+        $team = Team::model()->FindByAttributes(array('slug'=>$team_slug));
+        if(empty($team)){
+            throw new CHttpException(404,'The specified team cannot be found.');
+        }
+
+        $projects = Project::model()->FindByAttributes(array('team_id'=> $team->id));
+
+
+        $yesterday = strtotime('-1 day');
+        /*
+        $criteria = new CDbCriteria;
+        $criteria->select = 'times_seen';
+
+        $criteria->addCondition("project_id IN (:project_ids)");
+        $criteria->params[':project_ids'] = $team->id;
+
+        $criteria->addCondition("datetime >= :days");
+        $criteria->params[':last_seen'] = date('Y-m-d H:i:s', $yesterday);
+        $messages = Groupedmessage::model()->findAll($criteria);
+        */
+        for($i=$yesterday; $i <= $yesterday + 86400;$i=$i+3600){
+            $ret[] = array(
+                $i*1000, rand(0,99)
+            );
+        }
+
+        $this->response(200, $ret);
     }
 
     public function actionBookmark(){
@@ -44,44 +75,64 @@ class ApiController extends Controller
         $this->response(200,$ret);
     }
 
+    public function actionPoll(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
 
-    private function process($data, $project_id){
+    public function actionResolve(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
+
+    public function actionRemove_group(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
+
+    public function actionClear(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
+
+    public function actionGet_resolved_groups(){
+        $ret ='[]';
+        $this->response(200,$ret);
+    }
+
+    private function process($data, $project_id=''){
+        if('' == $project_id){
+            $xAuth = $this->extract_auth_vars();
+
+            $projectKey = ProjectKey::model()->findByAttributes(array('public_key'=> $xAuth['sentry_key'], 'secret_key'=>$xAuth['sentry_secret']));
+
+            if(!empty($projectKey)){
+                $project_id = $projectKey->id;
+            }else{
+                $this->response(200, 'Invalid api key');
+            }
+        }
 
         $project = Project::model()->findByPK($project_id);
 
-        #判断容量限制
-        if ($project::is_rate_limited){
+        #过载保护
+        /**
+         * Return True if this project (or the system) is over any defined quotas.
+         * TODO: 过载保护
+         *
+        if (Quota::is_rate_limited){
             $this->response('API RateLimited');
-        }
+        }*/
 
-        #判断权限
-        $result = Plugins::first('has_perm', request.user, 'create_event', $project);
 
-        if ($result == false){
-            $this->response('Creation of this event was blocked');
-        }
 
         #处理数据
         try{
             # mutates data
-            Store::validate_data($project, $data, $auth['client']);
+            $event_id = Store::save_data($project, $data);
         } catch (Exception $e) {
             throw $e;
         }
-
-        # mutates data
-        Store::normalize_event_data($data);
-
-        # insert IP address if not available
-        if (auth::is_public){
-            Store::ensure_has_ip($data, $_SERVER['REMOTE_ADDR']);
-        }
-        $event_id = $data['event_id'];
-
-        # mutates data (strips a lot of context if not queued)
-        Stroe::insert_data_to_database($data);
-
-        Yii::trace(sprintf('New event from project %s/%s (id=%s)', $project->team->slug, $project->slug, $event_id),'api');
 
         return $event_id;
     }

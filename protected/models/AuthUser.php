@@ -65,7 +65,7 @@ class AuthUser extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'djangoAdminLogs' => array(self::HAS_MANY, 'DjangoAdminLog', 'user_id'),
+			'ProjectKey' => array(self::HAS_MANY, 'Projectkey', 'user_id'),
 		);
 	}
 

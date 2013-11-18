@@ -76,33 +76,69 @@ class Groupedmessage extends CActiveRecord
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'status' => 'Status',
-			'first_seen' => 'First Seen',
-			'resolved_at' => 'Resolved At',
-			'last_seen' => 'Last Seen',
-			'time_spent_count' => 'Time Spent Count',
-			'level' => 'Level',
-			'num_comments' => 'Num Comments',
-			'times_seen' => 'Times Seen',
-			'active_at' => 'Active At',
-			'id' => 'ID',
-			'time_spent_total' => 'Time Spent Total',
-			'score' => 'Score',
-			'platform' => 'Platform',
-			'checksum' => 'Checksum',
-			'is_public' => 'Is Public',
-			'message' => 'Message',
-			'project_id' => 'Project',
-			'data' => 'Data',
-			'logger' => 'Logger',
-			'view' => 'View',
-		);
-	}
+
+    /**
+     * @param $team_slug
+     * @param $project
+     * @param int $last_seen
+     * @param int $status
+     * @param int $limit
+     * @return array
+     */
+    public static function getList($team_slug, $project, $last_seen=0, $status=0, $limit=20){
+        $criteria = new CDbCriteria;
+        $criteria->select = '((julianday(last_seen) - 2440587.5) * 86400) AS "sort_value", "id", "project_id", "logger", "level", "message", "view", "checksum", "num_comments", "platform", "status", "times_seen", "last_seen", "first_seen", "resolved_at", "active_at", "time_spent_total", "time_spent_count", "score", "is_public", "data"';
+        $criteria->addCondition("project_id = :project_id");
+        $criteria->params[':project_id'] = $project->id;
+        $criteria->addCondition("status = :status");
+        $criteria->params[':status'] = 0;
+        $criteria->addCondition("last_seen >= :last_seen");
+        $criteria->params[':last_seen'] = "2013-11-09 16:50:32.202196";
+        $criteria->order = 'last_seen DESC';
+        $criteria->limit = 20;
+
+        $error = array(
+            10 => 'debug',
+            20 => 'info',
+            30 => 'warning',
+            40 => 'error',
+            50 => 'fatal',
+        );
+
+        $messages = self::model()->findAll($criteria);
+        $event_list = array();
+        if(!empty($messages)){
+            foreach($messages as $m){
+                $event_list[] = array(
+                    'version' => time(),
+                    'timeSpent' => $m->time_spent_total > 0 ?: null,
+                    'lastSeen' => $m->last_seen,
+                    'historicalData' => array(),
+                    'isResolved' => $m->resolved_at ? true:false,
+                    'levelName' => isset($error[$m->level])? $error[$m->level] : 'error',
+                    'title' => $m->view,
+                    'id' => $m->id,
+                    'score' => $m->score,
+                    'logger' => $m->logger,
+                    'canResolve' => true,
+                    'annotations' => array(array("count"=> 1, "label" => "users")),
+                    'tags' => array(),
+                    'isPublic' => $m->is_public ? true:false,
+                    'hasSeen' => $m->status ? true:false,
+                    'firstSeen' => $m->first_seen,
+                    'count' =>  $m->times_seen,
+                    'permalink' => '/'.$team_slug.'/'.$project->id.'/group/'.$m->id.'/',
+                    'message' => $m->message,
+                    'versions' => array(),
+                    'isBookmarked' => false,
+                    'project' => array(
+                        'name' => $project->name,
+                        'slug' => $project->slug,
+                    )
+                );
+            }
+        }
+        return $event_list;
+    }
 
 }
