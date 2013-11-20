@@ -25,10 +25,30 @@ class TeamsController extends Controller
 		);
 	}
 
-	public function actionManage_team()
+
+	public function actionManage_team($team_slug)
 	{
-		$this->render('manage_team');
+        $team = Team::model()->FindByAttributes(array('slug'=>$team_slug));
+
+        if(Yii::app()->request->isPostRequest){
+            $team->name = $_POST['name'];
+            $team->slug = $_POST['slug'];
+        }
+        $this->render('manage_team',array('team'=>$team));
 	}
+
+    /**
+     * Create New Team
+     */
+    public function actionCreate_new_team(){
+
+        if(Yii::app()->request->isPostRequest){
+
+            $this->redirect('/teams/dbc');
+        }
+
+        $this->render('create_new_team');
+    }
 
 	public function actionCreate_new_team_project(){
 		
@@ -49,8 +69,10 @@ class TeamsController extends Controller
         $this->render('projects');
     }
 
-    public function actionSettings(){
-        $this->render('settings');
+    public function actionSettings($team_slug){
+        $team = Team::model()->FindByAttributes(array('slug'=>$team_slug));
+
+        $this->render('settings',array('team'=>$team));
     }
 
     public function actionMembers(){

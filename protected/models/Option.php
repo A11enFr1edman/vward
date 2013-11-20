@@ -1,11 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "sentry_option".
+ * This is the model class for table "option".
  *
- * The followings are the available columns in table 'sentry_option':
- * @property string $key
+ * The followings are the available columns in table 'option':
  * @property integer $id
+ * @property string $key
  * @property string $value
  */
 class Option extends CActiveRecord
@@ -25,7 +25,7 @@ class Option extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_option';
+		return 'option';
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Option extends CActiveRecord
 			array('key', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('key, id, value', 'safe', 'on'=>'search'),
+			array('id, key, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,8 +61,8 @@ class Option extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'key' => 'Key',
 			'id' => 'ID',
+			'key' => 'Key',
 			'value' => 'Value',
 		);
 	}
@@ -78,8 +78,8 @@ class Option extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('key',$this->key,true);
 		$criteria->compare('id',$this->id);
+		$criteria->compare('key',$this->key,true);
 		$criteria->compare('value',$this->value,true);
 
 		return new CActiveDataProvider($this, array(

@@ -1,14 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "sentry_teammember".
+ * This is the model class for table "teammember".
  *
- * The followings are the available columns in table 'sentry_teammember':
- * @property integer $type
+ * The followings are the available columns in table 'teammember':
+ * @property integer $id
  * @property integer $team_id
  * @property integer $user_id
- * @property integer $id
+ * @property integer $type
  * @property string $date_added
+ *
+ * The followings are the available model relations:
+ * @property Team $team
+ * @property AuthUser $user
  */
 class Teammember extends CActiveRecord
 {
@@ -27,7 +31,7 @@ class Teammember extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_teammember';
+		return 'teammember';
 	}
 
 	/**
@@ -38,11 +42,11 @@ class Teammember extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, team_id, user_id, date_added', 'required'),
-			array('type, team_id, user_id', 'numerical', 'integerOnly'=>true),
+			array('team_id, user_id, type, date_added', 'required'),
+			array('team_id, user_id, type', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('type, team_id, user_id, id, date_added', 'safe', 'on'=>'search'),
+			array('id, team_id, user_id, type, date_added', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,6 +58,8 @@ class Teammember extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'team' => array(self::BELONGS_TO, 'Team', 'team_id'),
+			'user' => array(self::BELONGS_TO, 'AuthUser', 'user_id'),
 		);
 	}
 
@@ -63,10 +69,10 @@ class Teammember extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'type' => 'Type',
+			'id' => 'ID',
 			'team_id' => 'Team',
 			'user_id' => 'User',
-			'id' => 'ID',
+			'type' => 'Type',
 			'date_added' => 'Date Added',
 		);
 	}
@@ -82,10 +88,10 @@ class Teammember extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('type',$this->type);
+		$criteria->compare('id',$this->id);
 		$criteria->compare('team_id',$this->team_id);
 		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('id',$this->id);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('date_added',$this->date_added,true);
 
 		return new CActiveDataProvider($this, array(

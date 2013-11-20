@@ -50,16 +50,13 @@
                                 "asteriskField">*</span></label>
 
                                 <div class="controls">
-                                    <input class="widget" id="id_owner" name=
-                                    "owner" placeholder="username" type="text"
-                                    value="summic" />
+                                    <input class="widget" id="id_owner" name="owner" placeholder="username" type="text" value="summic" />
                                 </div>
                             </div>
                         </fieldset>
 
                         <fieldset class="form-actions">
-                            <button class="btn btn-primary" type="submit">Save
-                            Changes</button>
+                            <button class="btn btn-primary" type="submit">保存设置</button>
 
                             <div class="pull-right note">
                                 You cannot remove this team because it has

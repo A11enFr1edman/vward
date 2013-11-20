@@ -1,14 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "sentry_grouptagkey".
+ * This is the model class for table "grouptagkey".
  *
- * The followings are the available columns in table 'sentry_grouptagkey':
+ * The followings are the available columns in table 'grouptagkey':
  * @property integer $id
  * @property integer $project_id
  * @property integer $group_id
  * @property string $key
- * @property integer $values_seen
+ * @property string $values_seen
+ *
+ * The followings are the available model relations:
+ * @property Groupedmessage $group
+ * @property Project $project
  */
 class Grouptagkey extends CActiveRecord
 {
@@ -27,7 +31,7 @@ class Grouptagkey extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_grouptagkey';
+		return 'grouptagkey';
 	}
 
 	/**
@@ -39,8 +43,9 @@ class Grouptagkey extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('group_id, key, values_seen', 'required'),
-			array('project_id, group_id, values_seen', 'numerical', 'integerOnly'=>true),
+			array('project_id, group_id', 'numerical', 'integerOnly'=>true),
 			array('key', 'length', 'max'=>32),
+			array('values_seen', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, project_id, group_id, key, values_seen', 'safe', 'on'=>'search'),
@@ -55,6 +60,8 @@ class Grouptagkey extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'group' => array(self::BELONGS_TO, 'Groupedmessage', 'group_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 		);
 	}
 
@@ -87,7 +94,7 @@ class Grouptagkey extends CActiveRecord
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('group_id',$this->group_id);
 		$criteria->compare('key',$this->key,true);
-		$criteria->compare('values_seen',$this->values_seen);
+		$criteria->compare('values_seen',$this->values_seen,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

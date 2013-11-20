@@ -1,14 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "sentry_groupseen".
+ * This is the model class for table "groupseen".
  *
- * The followings are the available columns in table 'sentry_groupseen':
+ * The followings are the available columns in table 'groupseen':
  * @property integer $id
  * @property integer $project_id
  * @property integer $group_id
  * @property integer $user_id
  * @property string $last_seen
+ *
+ * The followings are the available model relations:
+ * @property AuthUser $user
+ * @property Groupedmessage $group
+ * @property Project $project
  */
 class Groupseen extends CActiveRecord
 {
@@ -27,7 +32,7 @@ class Groupseen extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_groupseen';
+		return 'groupseen';
 	}
 
 	/**
@@ -54,6 +59,9 @@ class Groupseen extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'user' => array(self::BELONGS_TO, 'AuthUser', 'user_id'),
+			'group' => array(self::BELONGS_TO, 'Groupedmessage', 'group_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 		);
 	}
 

@@ -1,25 +1,20 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
 ?>
-
-
 <section id="content" class="">
 	<div class="container">
 		<div class="content">
         	<div class="main">
-				<div id="messages"></div>
+				<div id="messages"><?php
+                    $flashMessages = Yii::app()->user->getFlashes();
+                    if ($flashMessages) {
+                        foreach($flashMessages as $key => $message) {
+                            echo '<div class="alert alert-' . $key . '"><button class="close" data-dismiss="alert" type="button">×</button>'. $message .'</div>';
+                        }
+                    }
+                    ?></div>
 			    <section class="body">
-					<?php
-					$flashMessages = Yii::app()->user->getFlashes();
-					if ($flashMessages) {
-					    foreach($flashMessages as $key => $message) {
-					        echo '<div class="alert alert-' . $key . '"><button class="close" data-dismiss="alert" type="button">×</button>'. $message .'</div>';
-					    }
-					}
-					?>
+
 			        <div class="row">
 			            <div class="span5">
 			                <form class="form-stacked" action="" method="post">
@@ -32,7 +27,7 @@ $this->breadcrumbs=array(
 										用户名<span class="asteriskField">*</span>
 									</label>
 							        <div class="controls">
-							            <input class="textinput textInput" id="id_username" maxlength="254" name="login[username]" type="text" />	
+							            <input class="textinput textInput" id="id_username" maxlength="254" name="login[username]" type="text" value="<?php echo $model->username ?>" />
 							        </div>
 								</div>
 								<div id="div_id_password" class="control-group">

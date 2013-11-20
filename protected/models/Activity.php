@@ -1,18 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "sentry_activity".
+ * This is the model class for table "activity".
  *
- * The followings are the available columns in table 'sentry_activity':
+ * The followings are the available columns in table 'activity':
  * @property integer $id
  * @property integer $project_id
  * @property integer $group_id
  * @property integer $event_id
- * @property integer $type
+ * @property string $type
  * @property string $ident
  * @property integer $user_id
  * @property string $datetime
  * @property string $data
+ *
+ * The followings are the available model relations:
+ * @property AuthUser $user
+ * @property Message $event
+ * @property Groupedmessage $group
+ * @property Project $project
  */
 class Activity extends CActiveRecord
 {
@@ -31,7 +37,7 @@ class Activity extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_activity';
+		return 'activity';
 	}
 
 	/**
@@ -43,7 +49,8 @@ class Activity extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('project_id, type, datetime', 'required'),
-			array('project_id, group_id, event_id, type, user_id', 'numerical', 'integerOnly'=>true),
+			array('project_id, group_id, event_id, user_id', 'numerical', 'integerOnly'=>true),
+			array('type', 'length', 'max'=>10),
 			array('ident', 'length', 'max'=>64),
 			array('data', 'safe'),
 			// The following rule is used by search().
@@ -60,6 +67,10 @@ class Activity extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'user' => array(self::BELONGS_TO, 'AuthUser', 'user_id'),
+			'event' => array(self::BELONGS_TO, 'Message', 'event_id'),
+			'group' => array(self::BELONGS_TO, 'Groupedmessage', 'group_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 		);
 	}
 
@@ -96,7 +107,7 @@ class Activity extends CActiveRecord
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('group_id',$this->group_id);
 		$criteria->compare('event_id',$this->event_id);
-		$criteria->compare('type',$this->type);
+		$criteria->compare('type',$this->type,true);
 		$criteria->compare('ident',$this->ident,true);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('datetime',$this->datetime,true);

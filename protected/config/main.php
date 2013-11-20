@@ -41,10 +41,13 @@ return array(
             'csrfTokenName' => 'authenticity_token',
             'noCsrfValidationRoutes'=>array('api'),
         ),
-		'db'=>array(
-			'connectionString' => 'sqlite:protected/data/sentry.db',
-			'tablePrefix' => '',
-		),
+        'db'=>array(
+            'connectionString' => 'mysql:host=localhost;dbname=sentry',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => 'root',
+            'charset' => 'utf8',
+        ),
 		// uncomment the following to use a MySQL database
 		/*
 		'db'=>array(
@@ -75,6 +78,7 @@ return array(
 			/* */
             'rules'=>array(
                 # Account
+                'gii/<_a>' => 'gii/<_a>',
                 'login'=> 'accounts/login',
                 'login-redirect'=> 'accounts/login_redirect',
                 'logout'=> 'accounts/logout',

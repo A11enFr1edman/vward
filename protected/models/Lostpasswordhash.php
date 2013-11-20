@@ -1,13 +1,16 @@
 <?php
 
 /**
- * This is the model class for table "sentry_lostpasswordhash".
+ * This is the model class for table "lostpasswordhash".
  *
- * The followings are the available columns in table 'sentry_lostpasswordhash':
+ * The followings are the available columns in table 'lostpasswordhash':
  * @property integer $id
  * @property integer $user_id
  * @property string $hash
  * @property string $date_added
+ *
+ * The followings are the available model relations:
+ * @property AuthUser $user
  */
 class Lostpasswordhash extends CActiveRecord
 {
@@ -26,7 +29,7 @@ class Lostpasswordhash extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_lostpasswordhash';
+		return 'lostpasswordhash';
 	}
 
 	/**
@@ -54,6 +57,7 @@ class Lostpasswordhash extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'user' => array(self::BELONGS_TO, 'AuthUser', 'user_id'),
 		);
 	}
 

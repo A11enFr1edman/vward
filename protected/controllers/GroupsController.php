@@ -12,6 +12,9 @@ class GroupsController extends Controller {
     public function actionGroup_list($team_slug, $project_id){
 
         $project = $this->getProject($team_slug, $project_id);
+        if(false == $project){
+
+        }
 
         $event_list = Groupedmessage::getList($team_slug, $project['project']);
 
@@ -21,6 +24,10 @@ class GroupsController extends Controller {
     public  function actionGroup($team_slug, $project_id){
         $this->team_slug = $team_slug;
         $this->project_id = $project_id;
+
+        //TODO: Get All teams and projects
+
+
         $this->render('group');
     }
 
@@ -32,6 +39,8 @@ class GroupsController extends Controller {
 
     public function actionDashboard($team_slug){
         $this->team_slug = $team_slug;
+
+
 
         $this->render('dashboard');
     }

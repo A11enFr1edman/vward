@@ -1,13 +1,16 @@
 <?php
 
 /**
- * This is the model class for table "sentry_groupmeta".
+ * This is the model class for table "groupmeta".
  *
- * The followings are the available columns in table 'sentry_groupmeta':
- * @property string $value
- * @property integer $group_id
+ * The followings are the available columns in table 'groupmeta':
  * @property integer $id
+ * @property integer $group_id
  * @property string $key
+ * @property string $value
+ *
+ * The followings are the available model relations:
+ * @property Groupedmessage $group
  */
 class Groupmeta extends CActiveRecord
 {
@@ -26,7 +29,7 @@ class Groupmeta extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_groupmeta';
+		return 'groupmeta';
 	}
 
 	/**
@@ -37,12 +40,12 @@ class Groupmeta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('value, group_id, key', 'required'),
+			array('group_id, key, value', 'required'),
 			array('group_id', 'numerical', 'integerOnly'=>true),
 			array('key', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('value, group_id, id, key', 'safe', 'on'=>'search'),
+			array('id, group_id, key, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,6 +57,7 @@ class Groupmeta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'group' => array(self::BELONGS_TO, 'Groupedmessage', 'group_id'),
 		);
 	}
 
@@ -63,10 +67,10 @@ class Groupmeta extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'value' => 'Value',
-			'group_id' => 'Group',
 			'id' => 'ID',
+			'group_id' => 'Group',
 			'key' => 'Key',
+			'value' => 'Value',
 		);
 	}
 
@@ -81,10 +85,10 @@ class Groupmeta extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('value',$this->value,true);
-		$criteria->compare('group_id',$this->group_id);
 		$criteria->compare('id',$this->id);
+		$criteria->compare('group_id',$this->group_id);
 		$criteria->compare('key',$this->key,true);
+		$criteria->compare('value',$this->value,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

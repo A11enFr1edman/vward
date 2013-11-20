@@ -20,7 +20,20 @@ class AccountsController extends Controller{
             $this->redirect(Yii::app()->user->returnUrl);
         }
 
-        $this->render('register');
+        $model=new RegisterForm;
+        if(Yii::app()->request->isPostRequest)
+        {
+            $model->attributes=$_POST;
+
+            // validate user input and redirect to the previous page if valid
+            if($model->validate()){
+                $exist = AuthUser::model()->find('username=:u OR email=:e', array(':u'=>$model->username,':e'=>$model->email));
+                if(!empty($exist)){
+                    Yii::app()->user->setFlash('info', "请登录以继续操作");
+                }
+            }
+        }
+        $this->render('register', array('model'=>$model));
     }
 
 

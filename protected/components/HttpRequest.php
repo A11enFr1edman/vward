@@ -42,9 +42,13 @@ class HttpRequest extends CHttpRequest{
                 $valid=$tokenFromSession===$_POST[$this->csrfTokenName];
             }
             else
+            {
                 $valid=false;
-            if(!$valid)
+            }
+
+            if(!$valid){
                 throw new CHttpException(400,Yii::t('yii','The CSRF token could not be verified.'));
+            }
         }
     }
 

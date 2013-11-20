@@ -9,34 +9,24 @@
 			        <div class="pull-right">
 			            <a href="/teams/new/" class="btn btn-primary">注册新团队</a>
 			        </div>
-			        <h2>我的团队</h2>
+			        <h2>我的项目</h2>
 			        <ul class="team-list">
+                        <?php foreach($teamMember as $teamMember){ ?>
 			            <li>
-			                <div class="chart" data-api-url="/api/dbc/chart/">
+			                <div class="chart" data-api-url="/api/<?php echo $teamMember->team->slug?>/chart/">
 			                    <div class="sparkline">
 			                        <noscript>Get yourself some JavaScripts dood</noscript>
 			                        <span class="loading">Loading historical data...</span>
 			                    </div>
 			                </div>
-			                <h2><a href="/dbc/">DBC</a></h2>
+			                <h2><a href="/<?php echo $teamMember->team->slug?>/"><?php echo $teamMember->team->name?></a></h2>
 			                <ul>
-			                    <li><a href="/dbc/visionward/">VisionWard</a></li>
-								<li><a href="/dbc/dbc/">鹦鹉螺</a></li>
+                                <?php foreach($teamMember->team->projects as $project){  ?>
+			                    <li><a href="/<?php echo $teamMember->team->slug?>/<?php echo $project->slug ?>/"><?php echo $project->name ?></a></li>
+                                <?php } ?>
 			                </ul>
 			            </li>
-			            <li>
-			                <div class="chart" data-api-url="/api/sentry/chart/">
-			                    <div class="sparkline">
-			                        <noscript>Get yourself some JavaScripts dood</noscript>
-			                        <span class="loading">Loading historical data...</span>
-			                    </div>
-			                </div>
-			                <h2><a href="/sentry/">Sentry</a></h2>
-			                <ul>
-			                    <li><a href="/sentry/sentry/">Sentry</a></li>
-			                    <li><a href="/sentry/sentry/">Sentry</a></li>
-			                </ul>
-			            </li>
+                        <?php } ?>
 			        </ul>
 			    </section>
 			</div>

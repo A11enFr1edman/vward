@@ -1,14 +1,17 @@
 <?php
 
 /**
- * This is the model class for table "sentry_pendingteammember".
+ * This is the model class for table "pendingteammember".
  *
- * The followings are the available columns in table 'sentry_pendingteammember':
+ * The followings are the available columns in table 'pendingteammember':
  * @property integer $id
  * @property integer $team_id
  * @property string $email
  * @property integer $type
  * @property string $date_added
+ *
+ * The followings are the available model relations:
+ * @property Team $team
  */
 class Pendingteammember extends CActiveRecord
 {
@@ -27,7 +30,7 @@ class Pendingteammember extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_pendingteammember';
+		return 'pendingteammember';
 	}
 
 	/**
@@ -55,6 +58,7 @@ class Pendingteammember extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'team' => array(self::BELONGS_TO, 'Team', 'team_id'),
 		);
 	}
 

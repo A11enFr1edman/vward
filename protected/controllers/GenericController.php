@@ -41,11 +41,17 @@ class GenericController extends Controller{
         );
     }
 
+    /**
+     * Dashboard
+     */
     public function actionDashboard(){
-
-        $this->render('dashboard');
+        $teamMember = Teammember::model()->with('team')->FindAllByAttributes(array('user_id'=>Yii::app()->user->id));
+        $this->render('dashboard', array('teamMember'=>$teamMember));
     }
 
+    /**
+     * Error pages
+     */
     public function actionError()
     {
         if($error=Yii::app()->errorHandler->error)

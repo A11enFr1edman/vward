@@ -1,14 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "sentry_useroption".
+ * This is the model class for table "useroption".
  *
- * The followings are the available columns in table 'sentry_useroption':
+ * The followings are the available columns in table 'useroption':
  * @property integer $id
  * @property integer $user_id
  * @property integer $project_id
  * @property string $key
  * @property string $value
+ *
+ * The followings are the available model relations:
+ * @property Project $project
+ * @property AuthUser $user
  */
 class Useroption extends CActiveRecord
 {
@@ -27,7 +31,7 @@ class Useroption extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_useroption';
+		return 'useroption';
 	}
 
 	/**
@@ -55,6 +59,8 @@ class Useroption extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+			'user' => array(self::BELONGS_TO, 'AuthUser', 'user_id'),
 		);
 	}
 

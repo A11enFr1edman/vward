@@ -1,16 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "sentry_alert".
+ * This is the model class for table "alert".
  *
- * The followings are the available columns in table 'sentry_alert':
- * @property integer $status
+ * The followings are the available columns in table 'alert':
+ * @property integer $id
  * @property integer $project_id
+ * @property integer $group_id
  * @property string $datetime
  * @property string $message
- * @property integer $group_id
  * @property string $data
- * @property integer $id
+ * @property string $status
+ *
+ * The followings are the available model relations:
+ * @property Groupedmessage $group
+ * @property Project $project
+ * @property Alertrelatedgroup[] $alertrelatedgroups
  */
 class Alert extends CActiveRecord
 {
@@ -29,7 +34,7 @@ class Alert extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sentry_alert';
+		return 'alert';
 	}
 
 	/**
@@ -40,12 +45,13 @@ class Alert extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('status, project_id, datetime, message', 'required'),
-			array('status, project_id, group_id', 'numerical', 'integerOnly'=>true),
+			array('project_id, datetime, message, status', 'required'),
+			array('project_id, group_id', 'numerical', 'integerOnly'=>true),
+			array('status', 'length', 'max'=>10),
 			array('data', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('status, project_id, datetime, message, group_id, data, id', 'safe', 'on'=>'search'),
+			array('id, project_id, group_id, datetime, message, data, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +63,9 @@ class Alert extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'group' => array(self::BELONGS_TO, 'Groupedmessage', 'group_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+			'alertrelatedgroups' => array(self::HAS_MANY, 'Alertrelatedgroup', 'alert_id'),
 		);
 	}
 
@@ -66,13 +75,13 @@ class Alert extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'status' => 'Status',
+			'id' => 'ID',
 			'project_id' => 'Project',
+			'group_id' => 'Group',
 			'datetime' => 'Datetime',
 			'message' => 'Message',
-			'group_id' => 'Group',
 			'data' => 'Data',
-			'id' => 'ID',
+			'status' => 'Status',
 		);
 	}
 
@@ -87,13 +96,13 @@ class Alert extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('status',$this->status);
+		$criteria->compare('id',$this->id);
 		$criteria->compare('project_id',$this->project_id);
+		$criteria->compare('group_id',$this->group_id);
 		$criteria->compare('datetime',$this->datetime,true);
 		$criteria->compare('message',$this->message,true);
-		$criteria->compare('group_id',$this->group_id);
 		$criteria->compare('data',$this->data,true);
-		$criteria->compare('id',$this->id);
+		$criteria->compare('status',$this->status,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

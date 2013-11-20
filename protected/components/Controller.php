@@ -46,13 +46,13 @@ class Controller extends CController
 
         $ret['team'] = Team::model()->FindByAttributes(array('slug'=>$team_slug));
         if(empty($ret['team'])){
-            throw new CHttpException(404,'The specified team cannot be found.');
+            return false;
         }
 
         if($project_id){
             $ret['project'] = Project::model()->findByAttributes(array('slug'=>$project_id, 'team_id'=>$ret['team']->id));
             if(empty($ret['project'])){
-                throw new CHttpException(404,'The specified project cannot be found.');
+                return false;
             }
         }
 
