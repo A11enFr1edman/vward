@@ -10,6 +10,11 @@ class Controller extends CController
 	public $menu=array();
 	public $breadcrumbs=array();
 
+    public $my_teams;
+
+    public $team;
+    public $project;
+
 	public $team_slug;
 	public $project_id;
 

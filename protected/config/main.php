@@ -118,7 +118,7 @@ return array(
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/settings'=> 'projects/settings',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/docs'=> ' docs/client_help',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/docs/<platform>' => 'docs/client_guide',
-                '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/keys'=> 'projects/manage_project_keys',
+                '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/keys'=> 'projects/keys',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/keys/new'=> ' projects/new_project_key',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/keys/<key_id:\d+>/remove'=> ' projects/remove_project_key',
                 '/<team_slug:[\w_-]+>/<project_id:[\w_-]+>/plugins'=> 'projects/plugins/manage_plugins',

@@ -75,8 +75,18 @@ class ApiController extends AController
         $this->response(200,$ret);
     }
 
-    public function actionPoll(){
-        $ret ='[]';
+    public function actionPoll($team_slug, $project_id){
+        $cursor = Yii::app()->request->getParam('cursor',0);
+
+        $param = ctype_digit($project_id) ? array('id'=>$project_id) : array('slug'=>$project_id);
+        $project = Project::model()->with('team')->FindByAttributes($param);
+        if(empty($project) || $project->team->slug != $team_slug){
+            $this->response(404);
+        }
+
+        $events = Groupedmessage::getList($project, $cursor);
+
+        $ret ='[{"version": 1384964104.913001, "timeSpent": null, "lastSeen": "2013-11-20T16:15:02+00:00", "historicalData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "isResolved": false, "levelName": "error", "title": "This is a test exception sent from the Raven CLI.", "id": "1", "score": 1384935302, "logger": "php", "canResolve": true, "annotations": [{"count": 0, "label": "\u7528\u6237s"}], "tags": [], "isPublic": false, "hasSeen": false, "firstSeen": "2013-11-19T15:43:59+00:00", "count": "2", "permalink": "/sentry/sentry/group/1/", "level": 40, "message": "This is a test exception sent from the Raven CLI.", "versions": [], "isBookmarked": false, "project": {"name": "Sentry (Internal)", "slug": "sentry"}}]';
         $this->response(200,$ret);
     }
 

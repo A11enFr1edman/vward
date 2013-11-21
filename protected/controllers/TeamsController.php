@@ -44,7 +44,7 @@ class TeamsController extends Controller
 
         if(Yii::app()->request->isPostRequest){
 
-            $this->redirect('/teams/dbc');
+            $this->redirect('/dbc');
         }
 
         $this->render('create_new_team');

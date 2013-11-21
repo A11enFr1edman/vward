@@ -18,8 +18,8 @@
         app.config.popupCss = '/static/styles/popup.css';
         app.config.mediaUrl = '/static/';
         app.config.urlPrefix = "<?php echo Yii::app()->request->getBaseUrl(true);?>";
-        app.config.projectId = <?php echo '"'.$this->team_slug.'"' ?: null ?>;
-        app.config.teamId = <?php echo '"'.$this->project_id.'"' ?: null ?>;
+        app.config.projectId = <?php echo '"'.$this->team_slug.'"'?>;
+        app.config.teamId = <?php echo '"'.$this->project_id.'"'?>;
     </script>
 </head>
 <body class="<?php echo $this->class?>">
@@ -29,7 +29,7 @@
                 <div class="navbar-inner">
                     <div class="container">
                         <a id="logo" href="/">Sentry</a>
-                        <h1><?php echo $this->title?></h1>
+
                         <?php if($this->team_slug){ ?>
                         <div id="team-banner">
                             <a class="dropdown-toggle" data-toggle="dropdown">
@@ -55,6 +55,8 @@
                                 </ul>
                             </nav>
                         </div>
+                        <?php }else{?>
+                        <h1><?php echo $this->title?></h1>
                         <?php } ?>
                         <ul class="nav pull-right">
                             <?php if(Yii::app()->user->id){?>

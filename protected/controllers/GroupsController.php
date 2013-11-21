@@ -11,12 +11,9 @@ class GroupsController extends Controller {
 
     public function actionGroup_list($team_slug, $project_id){
 
-        $project = $this->getProject($team_slug, $project_id);
-        if(false == $project){
+        $project = Project::model()->with('team')->findByAttributes(array('slug'=>$project_id));
 
-        }
-
-        $event_list = Groupedmessage::getList($team_slug, $project['project']);
+        $event_list = Groupedmessage::getList($project);
 
         $this->render('group_list', array('event_list' => $event_list));
     }

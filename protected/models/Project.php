@@ -125,29 +125,19 @@ class Project extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * @param $team_slug
+     * @param $project_id
+     * @return array|CActiveRecord|mixed|null
+     * @throws CHttpException
+     */
+    public static function load($team_slug, $project_id){
+        $param = ctype_digit($project_id) ? array('id' => $project_id) : array('slug'=>$project_id);
+        $project = self::model()->with('team')->FindByAttributes($param);
+        if(empty($project->team) || $project->team->slug !== $team_slug){
+            throw new CHttpException(404,'The specified project cannot be found.');
+        }
+        return $project;
+    }
 
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('owner_id',$this->owner_id);
-		$criteria->compare('public',$this->public);
-		$criteria->compare('date_added',$this->date_added,true);
-		$criteria->compare('status',$this->status,true);
-		$criteria->compare('slug',$this->slug,true);
-		$criteria->compare('team_id',$this->team_id);
-		$criteria->compare('platform',$this->platform,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
 }

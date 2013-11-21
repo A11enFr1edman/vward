@@ -45,7 +45,7 @@
                         <?php foreach($keys as $key){?>
                         <tr>
                             <td>
-                                <strong><?php echo $key->public_key;?></strong>  &mdash; <?php echo $key->user->username;?><br>
+                                <strong><?php echo $key->public_key;?></strong><?php if(isset($key->user->username)){echo'  &mdash; '.$key->user->username;}?><br>
                                 <code class="clippy"><?php echo $protocol; ?>://<?php echo $key->public_key;?>:<?php echo $key->secret_key;?>@<?php echo Yii::app()->request->serverName;?>/<?php echo $key->project_id;?></code><br>
 
                             </td>
@@ -60,61 +60,9 @@
                         <?php } ?>
                         </tbody>
                     </table>
-
                 </section>
-
             </div>
-
-            <div class="sidebar">
-                <ul class="nav nav-list">
-                    <li class="nav-header">详细信息</li>
-                    <li>
-                        <a href="/allan/boss/settings/">设置</a>
-                    </li>
-                    <li>
-                        <a href="/allan/boss/notifications/">Notifications</a>
-                    </li>
-                    <li>
-                        <a href="/allan/boss/quotas/">Rate Limits</a>
-                    </li>
-                    <li>
-                        <a href="/allan/boss/tags/">Tags</a>
-                    </li>
-                    <li class="active">
-                        <a href="/allan/boss/keys/">API Keys</a>
-                    </li>
-                </ul>
-                <ul class="nav nav-list">
-                    <li class="nav-header">Client Configuration</li>
-                    <li>
-                        <a href="/allan/boss/docs/">All Platforms</a>
-                    </li>
-                    <li>
-                        <a href="/allan/boss/docs/javascript/">JavaScript</a>
-                    </li>
-                    <li>
-                        <a href="/allan/boss/docs/python/">Python</a>
-                    </li>
-                    <li>
-                        <a href="/allan/boss/docs/php/">PHP</a>
-                    </li>
-                    <li>
-                        <a href="/allan/boss/docs/ruby/">Ruby</a>
-                    </li>
-                    <li>
-                        <a href="/allan/boss/docs/node.js/">Node.js</a>
-                    </li>
-                    <li>
-                        <a href="/<?php echo $this->team_slug;?>/boss/docs/java/">Java</a>
-                    </li>
-                </ul>
-                <ul class="nav nav-list">
-                    <li class="nav-header">Integrations</li>
-                    <li class="">
-                        <a href="/<?php echo $this->team_slug;?>/boss/plugins/">Manage Integrations (21)</a>
-                    </li>
-                </ul>
-            </div>
+            <?php $this->renderPartial('_sidebar',array('team_slug'=>$this->team_slug, 'project_slug'=>$this->project_id)); ?>
         </div>
     </div>
 </section>

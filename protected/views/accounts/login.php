@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - Login';
+$this->pageTitle=Yii::app()->name . ' - 登录';
 ?>
 <section id="content" class="">
 	<div class="container">
@@ -14,13 +14,12 @@ $this->pageTitle=Yii::app()->name . ' - Login';
                     }
                     ?></div>
 			    <section class="body">
-
 			        <div class="row">
 			            <div class="span5">
 			                <form class="form-stacked" action="" method="post">
                                 <input type='hidden' name='authenticity_token' value='<?php echo Yii::app()->request->getCsrfToken() ?>' />
 			                    <fieldset>
-			                        <legend>Login with your account</legend>
+			                        <legend>用户登录</legend>
 			                    </fieldset>
 								<div id="div_id_username" class="control-group">		
 									<label for="id_username" class="control-label requiredField">

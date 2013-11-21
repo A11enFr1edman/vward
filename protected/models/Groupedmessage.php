@@ -134,7 +134,7 @@ class Groupedmessage extends CActiveRecord
 		);
 	}
 
-    public static function getList($team_slug, $project, $last_seen=0, $status=0, $limit=20){
+    public static function getList($project, $score=0, $status=0, $limit=20){
         $criteria = new CDbCriteria;
 
         $criteria->select = '(UNIX_TIMESTAMP(last_seen)) AS `sort_value`, `id`, `project_id`, `logger`, `level`, `message`, `view`, `checksum`, `num_comments`, `platform`, `status`, `times_seen`, `last_seen`, `first_seen`, `resolved_at`, `active_at`, `time_spent_total`, `time_spent_count`, `score`, `is_public`, `data`';
@@ -142,8 +142,8 @@ class Groupedmessage extends CActiveRecord
         $criteria->params[':project_id'] = $project->id;
         $criteria->addCondition("status = :status");
         $criteria->params[':status'] = 0;
-        $criteria->addCondition("last_seen >= :last_seen");
-        $criteria->params[':last_seen'] = '2013-11-13 17:37:46';
+        $criteria->addCondition("score >= :score");
+        $criteria->params[':score'] = $score;
         $criteria->order = 'last_seen DESC';
         $criteria->limit = 20;
 
@@ -155,7 +155,6 @@ class Groupedmessage extends CActiveRecord
             50 => 'fatal',
         );
 
-        $messages = self::model()->findAll($criteria);
         $event_list = array();
         if(!empty($messages)){
             foreach($messages as $m){
@@ -177,7 +176,7 @@ class Groupedmessage extends CActiveRecord
                     'hasSeen' => true,
                     'firstSeen' => $m->first_seen,
                     'count' =>  $m->times_seen,
-                    'permalink' => "$team_slug",
+                    'permalink' => "",
                     'message' => $m->message,
                     'versions' => array(),
                     'isBookmarked' => false,

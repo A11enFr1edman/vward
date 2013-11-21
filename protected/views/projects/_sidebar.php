@@ -1,7 +1,7 @@
 <div class="sidebar">
     <ul class="nav nav-list">
         <li class="nav-header">详细信息</li>
-        <li class="active">
+        <li<?php if($this->action->id=='settings'){echo ' class="active"';} ?>>
             <a href="/<?php echo $team_slug;?>/<?php echo $project_slug;?>/settings/">设置</a>
         </li>
         <li>
@@ -13,7 +13,7 @@
         <li>
             <a href="/<?php echo $team_slug;?>/<?php echo $project_slug;?>/tags/">标签</a>
         </li>
-        <li>
+        <li<?php if($this->action->id=='keys'){echo ' class="active"';} ?>>
             <a href="/<?php echo $team_slug;?>/<?php echo $project_slug;?>/keys/">API密钥</a>
         </li>
     </ul>
