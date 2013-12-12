@@ -29,8 +29,7 @@
                 <div class="navbar-inner">
                     <div class="container">
                         <a id="logo" href="/">Sentry</a>
-
-                        <?php if($this->team_slug){ ?>
+                        <?php if(Yii::app()->user->getState('teams')){ ?>
                         <div id="team-banner">
                             <a class="dropdown-toggle" data-toggle="dropdown">
                                 DBC

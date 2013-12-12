@@ -116,6 +116,9 @@ class AccountsController extends Controller{
 
             // validate user input and redirect to the previous page if valid
             if($model->validate() && $model->login()){
+                $teams = Teammember::model()->with('team')->FindAllByAttributes(array('user_id'=>Yii::app()->user->id));
+                Yii::app()->user->setState('teams',$teams);
+
                 $this->redirect(Yii::app()->user->returnUrl);
             }else{
                 Yii::app()->user->setFlash('error','Please enter a correct username and password. Note that both fields may be case-sensitive.');

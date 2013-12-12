@@ -2,33 +2,25 @@
     <div class="container">
 
         <div class="pull-right">
-            <form action="/s/sentry/search/" id="search">
+            <form action="/<?php echo $this->team_slug; ?>/<?php echo $this->project_id; ?>/search/" id="search">
                 <input type="text" name="q" value="" placeholder="Search query or event ID" />
             </form>
         </div>
-
-
-
         <div class="dashboard-btn">
-            <a href="/s/" title="仪表盘">
+            <a href="/<?php echo $this->team_slug; ?>/" title="仪表盘">
                 <i aria-hidden="true" class="icon-list"></i>
             </a>
         </div>
-
-
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="/s/sentry/">Stream</a>
+                <a href="/<?php echo $this->team_slug; ?>/<?php echo $this->project_id; ?>/">Stream</a>
             </li>
-
             <li>
-                <a href="/s/sentry/settings/" title="Project Settings">
+                <a href="/<?php echo $this->team_slug; ?>/<?php echo $this->project_id; ?>/settings/" title="Project Settings">
                     设置
                 </a>
             </li>
-
         </ul>
-
     </div>
 </section>
 
@@ -38,13 +30,6 @@
             <div class="main">
                 <div id="messages">
                 </div>
-
-
-
-
-
-
-
                 <div class="btn-toolbar">
                     <div class="btn-group">
                         <a class="btn" href="javascript:void(0)" id="sentry-resolve-feed" onclick="Sentry.stream.clear('sentry');"><i aria-hidden="true" class="icon-checkmark"></i> Resolve Feed</a>
@@ -69,11 +54,7 @@
                     </div>
                     <div class="btn-group">
                         <a href="#" class="btn dropdown-toggle" onclick="$('#daterange').toggle(); return false;">
-
-
                             Since: 十一月 13th
-
-
                             <i aria-hidden="true" class="icon-arrow-down"></i></a>
                     </div>
                     <div class="btn-group pull-right">
@@ -127,7 +108,7 @@
                 <script>
                     $(function(){
                         new app.StreamPage({
-                            groups: [{"version": 1384796771.018822, "timeSpent": null, "lastSeen": "2013-11-18T17:28:36+00:00", "historicalData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8], "isResolved": false, "levelName": "error", "title": "This is a test exception sent from the Raven CLI.", "id": "1", "score": 1384766916, "logger": "php", "canResolve": true, "annotations": [{"count": 10, "label": "\u7528\u6237"}], "tags": [], "isPublic": false, "hasSeen": true, "firstSeen": "2013-11-18T17:04:30+00:00", "count": "8", "permalink": "/sentry/sentry/group/1/", "level": 40, "message": "This is a test exception sent from the Raven CLI.", "versions": [], "isBookmarked": false, "project": {"name": "Sentry", "slug": "sentry"}}],
+                            groups: <?php echo json_encode($event_list);?>,
                             canStream: true,
                             realtime: true
                         });
@@ -147,8 +128,6 @@
                 </div>
 
                 <form method="get">
-
-
                     <h6>书签</h6>
                     <div class="filter">
                         <ul class="nav nav-tabs nav-stacked filter-list">
@@ -156,9 +135,6 @@
                             <li><a href="?&amp;bookmarks=1">Only Bookmarks</a></li>
                         </ul>
                     </div>
-
-
-
 
                     <h6>状态</h6>
 
@@ -204,9 +180,6 @@
                 </form>
 
             </div>
-
-
-
 
         </div>
     </div>

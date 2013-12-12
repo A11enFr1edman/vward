@@ -8,12 +8,20 @@
 
 class GroupsController extends Controller {
 
+    protected function beforeAction($action){
+        //TODO load All my team and project
 
-    public function actionGroup_list($team_slug, $project_id){
+        $this->project = Project::load(Yii::app()->request->getParam('team_slug'), Yii::app()->request->getParam('project_id'));
+        $this->team_slug = Yii::app()->request->getParam('team_slug');
+        $this->project_id = Yii::app()->request->getParam('project_id');
 
-        $project = Project::model()->with('team')->findByAttributes(array('slug'=>$project_id));
+        return parent::beforeAction($action);
+    }
 
-        $event_list = Groupedmessage::getList($project);
+
+    public function actionGroup_list(){
+
+        $event_list = Groupedmessage::getList($this->project);
 
         $this->render('group_list', array('event_list' => $event_list));
     }

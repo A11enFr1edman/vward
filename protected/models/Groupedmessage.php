@@ -69,7 +69,7 @@ class Groupedmessage extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('logger, level, message, checksum, status, times_seen, last_seen, first_seen, score, time_spent_total, time_spent_count', 'required'),
-			array('score, project_id, time_spent_total, time_spent_count, is_public', 'numerical', 'integerOnly'=>true),
+			array('project_id, time_spent_total, time_spent_count, is_public', 'numerical', 'integerOnly'=>true),
 			array('logger, platform', 'length', 'max'=>64),
 			array('level, status, times_seen, num_comments', 'length', 'max'=>10),
 			array('view', 'length', 'max'=>200),
@@ -154,7 +154,7 @@ class Groupedmessage extends CActiveRecord
             40 => 'error',
             50 => 'fatal',
         );
-
+        $messages = self::model()->findAll($criteria);
         $event_list = array();
         if(!empty($messages)){
             foreach($messages as $m){
@@ -165,7 +165,7 @@ class Groupedmessage extends CActiveRecord
                     'historicalData' => array(0,0,0,0,0,0,0,0,0,0,05,345,45,43,346,7,32,23,424,42,42,13,435),
                     'isResolved' => false,
                     'levelName' => isset($error[$m->level])? $error[$m->level] : 'error',
-                    'title' => $m->view,
+                    'title' => $m->message,
                     'id' => $m->id,
                     'score' => $m->score,
                     'logger' => $m->logger,
@@ -173,10 +173,10 @@ class Groupedmessage extends CActiveRecord
                     'annotations' => array(array("count"=> 1, "label" => "users")),
                     'tags' => array(),
                     'isPublic' => false,
-                    'hasSeen' => true,
+                    'hasSeen' => false,
                     'firstSeen' => $m->first_seen,
                     'count' =>  $m->times_seen,
-                    'permalink' => "",
+                    'permalink' => "/sentry/sentry/groupss/".$m->id,
                     'message' => $m->message,
                     'versions' => array(),
                     'isBookmarked' => false,
